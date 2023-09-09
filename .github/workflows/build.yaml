@@ -33,6 +33,8 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: blux2/gha-test:${{ github.ref_name }}
+          context: ./httpserver
+          file: ./httpserver/Dockerfile
       - name: Create git tag
         run: |
           git tag ${{ github.ref_name }}
