@@ -28,13 +28,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Get PR Branch Name
-      id: get-branch-name
-      run: |
-        BRANCH_NAME=$(basename $(jq -r ".head.ref" < <(gh pr view https://github.com/${GITHUB_REPOSITORY}/pull/${{ github.event.pull_request.number }} --json head.ref)))
-        echo "PR branch name is $BRANCH_NAME"
-        echo "::set-output name=branch::$BRANCH_NAME"
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: get-branch-name
+        run: |
+          BRANCH_NAME=$(basename $(jq -r ".head.ref" < <(gh pr view https://github.com/${GITHUB_REPOSITORY}/pull/${{ github.event.pull_request.number }} --json head.ref)))
+          echo "PR branch name is $BRANCH_NAME"
+          echo "::set-output name=branch::$BRANCH_NAME"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push multi-arch images
         uses: docker/build-push-action@v2
